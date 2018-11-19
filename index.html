@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="imgs/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -18,13 +18,20 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+
+<style>
+div#bgElem {
+	transition-property: background;
+	transition-duration: 1.5s;
+}	
+</style>
 </head>
 <body>
 	
 	
 	<div class="size1 bg0 where1-parent">
 		<!-- Coutdown -->
-		<div class="flex-c-m bg-img1 size2 where1 overlay1 where2 respon2" style="background-image: url('images/bg01.jpg');">
+		<div id="bgElem" class="flex-c-m bg-img1 size2 where1 overlay1 where2 respon2">
 			<div class="wsize2 flex-w flex-c-m cd100 js-tilt">
 				<div class="flex-col-c-m size6 bor2 m-l-10 m-r-10 m-t-15">
 					<span class="l2-txt1 p-b-9 days">7</span>
@@ -51,7 +58,7 @@
 		<!-- Form -->
 		<div class="size3 flex-col-sb flex-w p-l-75 p-r-75 p-t-45 p-b-45 respon1">
 			<div class="wrap-pic1">
-				<img src="images/icons/logo.png" alt="LOGO">
+				<img src="imgs/icons/logo.png" alt="LOGO">
 			</div>
 
 			<div class="p-t-50 p-b-60">
@@ -141,6 +148,56 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script>
+		// Options for the slideshow
+		var bgOptions = {
+			"duration": 10,
+			"loop": true
+		};
 
+		var imgsArray = [];
+		
+		$.fn.changeBG = function(imgsArray, opts = {}) {
+			var imgIndex = 0;
+			var bgElem = $(this);
+
+			setInterval(function() {
+				imgIndex = imgIndex + 1;
+				if (imgIndex == imgsArray.length) imgIndex = 0;
+				
+				bgElem.css( "background-image", "url(" + imgsArray[imgIndex].src + ")");
+				console.log(bgElem.css( "background-image"));
+			}, opts.duration * 1000);
+		}
+	
+		$.fn.initBG = function(imgURL, opts = {}) {
+			
+			for (a = 0; a < imgURL.length; a++) {
+				imgsArray[a] = new Image();
+				imgsArray[a].src = imgURL[a];
+			}
+			/*
+			$(this).parent().append("<img id=\"bgElemImg\" />");
+			bgImg = $(this).parent().children("img#bgElemImg");
+			bgImg.width($(this).width());
+			bgImg.height($(this).height());
+			bgImg.css("position", "relative");
+			bgImg.css("float", "left");
+			*/
+			
+			$(this).css( "background-image", "url(" + imgsArray[0].src + ")");
+			
+			console.log(imgURL);
+			console.log(bgOptions);
+			
+		}
+		
+		var bgImgsURL = ["./imgs/bg01.jpg","./imgs/bg02.jpg","./imgs/bg03.jpg","./imgs/bg04.jpg","./imgs/bg05.jpg","./imgs/bg06.jpg","./imgs/bg07.jpg","./imgs/bg08.jpg","./imgs/bg09.jpg","./imgs/bg10.jpg"];
+	
+		var bgElem = $('#bgElem').initBG(bgImgsURL, bgOptions);
+		$('#bgElem').changeBG(imgsArray, bgOptions);
+		
+	</script>
+	
 </body>
 </html>
