@@ -32,7 +32,13 @@
                 return false;
             }
         }
+        else if($(input).attr('type') == 'text' && $(input).attr('name') == 'name') {
+            if($(input).val().trim().match(/^[a-z ]+$/i) == null) {
+                return false;
+            }
+        }
         else {
+        	console.log($(input).val());
             if($(input).val().trim() == ''){
                 return false;
             }
@@ -50,8 +56,4 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-
-    
-    
-
 })(jQuery);

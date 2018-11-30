@@ -66,7 +66,7 @@ div#bgElem {
 					Our website is <span class="m1-txt2">Under Construction</span>, follow us for update now!
 				</p>
 
-				<form class="contact100-form validate-form">
+				<form class="contact100-form validate-form" method="post" action= "/cgi-bin/under-construction/EmailSubscriptionSubmit.php">
 					<div class="wrap-input100 m-b-10 validate-input" data-validate = "Name is required">
 						<input class="s2-txt1 placeholder0 input100" type="text" name="name" placeholder="Your Name">
 						<span class="focus-input100"></span>
@@ -83,6 +83,14 @@ div#bgElem {
 						</button>
 					</div>
 				</form>
+				
+				<div class="p-t-20 p-b-20">
+				<div class="w-full">
+					<button class="flex-c-m s2-txt2 size4 bg5 bor1 hov1 trans-04">
+						Subscribe
+					</button>
+				</div>
+				</div>	
 
 				<p class="s2-txt3 p-t-18">
 					Dont worry we are still effective as ever.
@@ -130,7 +138,7 @@ div#bgElem {
 			/*Endtime must be > current time*/
 			endtimeYear: 2018,
 			endtimeMonth: 12,
-			endtimeDate: 01,
+			endtimeDate: 31,
 			endtimeHours: 0,
 			endtimeMinutes: 0,
 			endtimeSeconds: 0,
