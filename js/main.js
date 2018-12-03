@@ -8,15 +8,32 @@
 
     $('.validate-form').on('submit',function(){
         var check = true;
-
-        for(var i=0; i<input.length; i++) {
+      
+        /*for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
                 check=false;
             }
-        }
+        }*/
 
-        return check;
+        if (check == true) {
+        	var formData = [];
+        	
+        	for (var i=0; i < input.length; i++) {
+        		formData[i] = {"name": input[i].name, "value": input[i].value};
+        	}
+        	
+        	console.log(formData);
+        	
+        	$.ajax('http://wowbooth.local/cgi-bin/under-construction/EmailSubscriptionSubmit.php', {
+        		 success: subscriptionComplete,
+        		 data: formData,
+        		 method: "post"
+        	});
+        	return false;
+        }
+        
+        return false;
     });
 
 
@@ -55,5 +72,9 @@
         var thisAlert = $(input).parent();
 
         $(thisAlert).removeClass('alert-validate');
+    }
+    
+    function subscriptionComplete () {
+    	console.log("submitted form");
     }
 })(jQuery);

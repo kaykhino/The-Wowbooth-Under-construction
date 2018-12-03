@@ -66,7 +66,7 @@ div#bgElem {
 					Our website is <span class="m1-txt2">Under Construction</span>, follow us for update now!
 				</p>
 
-				<form class="contact100-form validate-form" method="post" action= "/cgi-bin/under-construction/EmailSubscriptionSubmit.php">
+				<form class="contact100-form validate-form">
 					<div class="wrap-input100 m-b-10 validate-input" data-validate = "Name is required">
 						<input class="s2-txt1 placeholder0 input100" type="text" name="name" placeholder="Your Name">
 						<span class="focus-input100"></span>
@@ -174,7 +174,6 @@ div#bgElem {
 				if (imgIndex == imgsArray.length) imgIndex = 0;
 				
 				bgElem.css( "background-image", "url(" + imgsArray[imgIndex].src + ")");
-				console.log(bgElem.css( "background-image"));
 			}, opts.duration * 1000);
 		}
 	
@@ -193,11 +192,7 @@ div#bgElem {
 			bgImg.css("float", "left");
 			*/
 			
-			$(this).css( "background-image", "url(" + imgsArray[0].src + ")");
-			
-			console.log(imgURL);
-			console.log(bgOptions);
-			
+			$(this).css( "background-image", "url(" + imgsArray[0].src + ")");			
 		}
 		
 		var bgImgsURL = ["./imgs/bg01.jpg","./imgs/bg02.jpg","./imgs/bg03.jpg","./imgs/bg04.jpg","./imgs/bg05.jpg","./imgs/bg06.jpg","./imgs/bg07.jpg","./imgs/bg08.jpg","./imgs/bg09.jpg","./imgs/bg10.jpg"];
