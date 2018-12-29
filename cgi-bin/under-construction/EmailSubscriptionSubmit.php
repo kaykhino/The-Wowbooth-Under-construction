@@ -1,5 +1,5 @@
 <?php
-	require_once('../libs/db.php');
+	include_once '../libs/db.php';
 	
 	$visitorName = $_POST['name'];
 	$visitorEmail = $_POST['email'];
@@ -7,10 +7,24 @@
 	$returnedData = array('success' => '', 'error' => array());
 	
 	function visitorExists($email) {
-		$querysql = "SELECT COUNT(*) FROM uc_subscription WHERE email = " . $email;
+	    $conn = &$GLOBALS['conn'];
+	    $querysql = "SELECT email FROM uc_subscription WHERE email = '" . $email . "'";
+    	
+    	$query = $conn->query($querysql);
 		
-		//$GLOBALS['returnedData']['error'] = array('visitorExists' => 'Email, ' . $email .'already exists');
-		return $GLOBALS['returnedData']['error'];
+    	if (!$query) {
+   	        die('Could not query:' . $conn->error);
+    	}
+    			
+    	if ($query->num_rows >= 1) {
+    	    $GLOBALS['returnedData']['error'] = array('visitorExists' => 'Email, ' . $email .' already exists');
+    	    
+    	    $conn->close();
+    	    
+    	    return $GLOBALS['returnedData']['error'];
+    	}
+    	
+    	return $GLOBALS['returnedData']['error'];
 	}
 	
 	function validateData($name, $email) {
@@ -37,8 +51,19 @@
 			return false;
 		}
 		
+		$conn = &$GLOBALS['conn'];
+		$insertsql = "INSERT into uc_subscription(name, email, phonenum, regdate, canceldate, cancelreason, cancelcomment) values('$name', '$email', '', '" . date("Y-m-d") . "', NULL, NULL, NULL)";
+		
+		if (!$insert = $conn->query($insertsql)) {
+		    $GLOBALS['returnedData']['error'] = $GLOBALS['returnedData']['error'] + array('insertfailed' => $conn->error);
+		    echo json_encode(($GLOBALS['returnedData']));
+		    return false;
+		}
+		
 		$GLOBALS['returnedData']['success'] = true;
 		echo json_encode($GLOBALS['returnedData']);
+		
+		$conn->close();
 	}
 	
 	submitData($visitorName, $visitorEmail);
